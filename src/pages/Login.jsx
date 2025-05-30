@@ -83,12 +83,14 @@ export default function Login() {
                       Forgot password?
                     </Link> */}
                   </div>
-                  <button
-                    type="submit"
-                    className="text-white w-full cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Sign in
-                  </button>
+                  <Link to={"/user/dashboard"}>
+                    <button
+                      type="submit"
+                      className="text-white w-full cursor-pointer mb-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      Log in
+                    </button>
+                  </Link>
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                     Don’t have an account yet?{" "}
                     <Link
