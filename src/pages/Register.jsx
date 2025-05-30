@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Main from "../components/Main";
 
 export default function Register() {
@@ -6,8 +7,8 @@ export default function Register() {
       <Main>
         <section className="bg-gray-50 dark:bg-gray-900">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:min-h-[73vh]">
-            <a
-              href="#"
+            <Link
+              to="#"
               className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
             >
               <img
@@ -16,7 +17,7 @@ export default function Register() {
                 alt="logo"
               />
               Flowbite
-            </a>
+            </Link>
             <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -107,27 +108,29 @@ export default function Register() {
                         </label>
                       </div>
                     </div>
-                    <a
-                      href="#"
+                    <Link
+                      to="#"
                       className="text-sm text-white font-medium text-primary-600 hover:underline dark:text-primary-500"
                     >
                       Forgot password?
-                    </a>
+                    </Link>
                   </div>
-                  <button
-                    type="submit"
-                    className="text-white w-full cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                    Sign in
-                  </button>
+                  <Link to="/mentor/dashboard">
+                    <button
+                      type="submit"
+                      className="text-white mb-2 w-full cursor-pointer bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      Sign up
+                    </button>
+                  </Link>
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                     Already signed up?{" "}
-                    <a
-                      href="/login"
+                    <Link
+                      to="/login"
                       className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                     >
                       Log in
-                    </a>
+                    </Link>
                   </p>
                 </form>
               </div>
