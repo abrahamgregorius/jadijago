@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import UserDashboard from './pages/User/UserDashboard'
+import MentorDashboard from './pages/Mentor/MentorDashboard'
 
 function App() {
   return (
@@ -15,10 +17,12 @@ function App() {
       
       
         {/* User route */}
+        <Route element={<UserDashboard></UserDashboard>} path='/user/dashboard'></Route>
       
       
       
         {/* Mentor route */}
+        <Route element={<MentorDashboard></MentorDashboard>} path='/mentor/dashboard'></Route>
       
       </Routes>
     </>
