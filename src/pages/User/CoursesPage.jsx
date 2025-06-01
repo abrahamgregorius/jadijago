@@ -19,7 +19,7 @@ export default function CoursesPage() {
                   .map((_, index) => (
                     <div
                       key={index}
-                      className="shadow select-none cursor-pointer shadow-white hover:bg-gray-300 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
+                      className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                     >
                       <img
                         src={dummyImg}
@@ -56,7 +56,7 @@ export default function CoursesPage() {
                   .map((_, index) => (
                     <div
                       key={index}
-                      className="shadow select-none cursor-pointer shadow-white hover:bg-gray-300 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
+                      className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                     >
                       <img
                         src={dummyImg}
