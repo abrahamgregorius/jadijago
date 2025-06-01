@@ -1,10 +1,9 @@
-import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import UserDashboard from './pages/User/UserDashboard'
 import MentorDashboard from './pages/Mentor/MentorDashboard'
+import CoursesPage from './pages/User/CoursesPage'
 
 function App() {
   return (
@@ -17,8 +16,8 @@ function App() {
       
       
         {/* User route */}
-        <Route element={<UserDashboard></UserDashboard>} path='/user/dashboard'></Route>
-      
+        <Route element={<CoursesPage></CoursesPage>} path='/courses'></Route>
+        
       
       
         {/* Mentor route */}
