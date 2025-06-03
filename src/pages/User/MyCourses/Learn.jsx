@@ -405,6 +405,83 @@ export default function Learn() {
             <div className="lg:col-span-2 space-y-6">
               <VideoPlayer currentLesson={currentLesson} />
               <CourseInfo />
+
+              {/* Comments Section */}
+              <section className="max-w-4xl mx-auto mt-16 px-6">
+                <h3 className="text-2xl font-bold text-white mb-6">
+                  Discussion & Comments
+                </h3>
+
+                {/* New Comment Input */}
+                <div className="bg-slate-800 p-6 rounded-lg mb-6">
+                  <textarea
+                    placeholder="Write a comment..."
+                    className="w-full h-24 p-3 rounded-md bg-slate-700 text-white resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  ></textarea>
+                  <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-md transition-colors">
+                    Post Comment
+                  </button>
+                </div>
+
+                {/* Static Comments with Replies */}
+                <div className="space-y-6">
+                  {[
+                    {
+                      name: "Jane Doe",
+                      comment:
+                        "This course was super helpful for understanding AI basics!",
+                      date: "June 3, 2025",
+                      replies: [
+                        {
+                          name: "Instructor",
+                          reply:
+                            "Glad it helped! Let us know if you have any questions.",
+                          date: "June 3, 2025",
+                        },
+                      ],
+                    },
+                    {
+                      name: "John Smith",
+                      comment:
+                        "Looking forward to the next material. When will it drop?",
+                      date: "June 2, 2025",
+                      replies: [],
+                    },
+                  ].map((c, i) => (
+                    <div key={i} className="bg-slate-800 p-5 rounded-lg">
+                      <div className="text-sm text-slate-400 mb-1">
+                        <span className="font-bold text-white">{c.name}</span> •{" "}
+                        {c.date}
+                      </div>
+                      <p className="text-slate-200 mb-4">{c.comment}</p>
+
+                      {/* Replies */}
+                      <div className="space-y-3 pl-6 border-l border-slate-600">
+                        {c.replies.map((r, j) => (
+                          <div key={j} className="text-sm text-slate-300">
+                            <span className="font-semibold text-white">
+                              {r.name}
+                            </span>{" "}
+                            • {r.date}
+                            <p className="ml-2 mt-1">{r.reply}</p>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Reply Box */}
+                      <div className="mt-4 pl-6">
+                        <textarea
+                          placeholder="Write a reply..."
+                          className="w-full h-20 p-3 rounded-md bg-slate-700 text-white resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        ></textarea>
+                        <button className="mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 text-sm rounded-md">
+                          Reply
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
 
             {/* Right Section - Playlist and Purchase Card */}
