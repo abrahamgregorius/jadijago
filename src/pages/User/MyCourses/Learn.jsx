@@ -185,7 +185,16 @@ const VideoPlayer = ({ currentLesson }) => {
   return (
     <div className="bg-slate-700 rounded-lg overflow-hidden">
       <div className="aspect-video bg-slate-600 flex items-center justify-center">
-        <div className="text-center">
+        <iframe
+          className="w-full h-full"
+          src="https://www.youtube.com/embed/yaL5ZMvRRqE"
+          title="A brief history of AI"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+        {/* <div className="text-center">
           <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-white"
@@ -209,7 +218,7 @@ const VideoPlayer = ({ currentLesson }) => {
               Duration: {currentLesson.duration}
             </p>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,5 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import { supabase } from "../../lib/supabaseClient";
+import { useEffect, useState } from "react";
+
 const courseData = {
   title: "The Complete AI Guide: Learn ChatGPT, Generative AI & More",
   rating: "8/10 Rating",
@@ -19,6 +22,52 @@ const courseData = {
 };
 
 export default function CoursesDetail() {
+  const [course, setCourse] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  const courseId = useParams().id;
+
+  const addToCart = async () => {
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      alert('Please log in to add to cart');
+      return;
+    }
+
+    const { error } = await supabase.from('cart').insert({
+      user_id: user.id,
+      course_id: courseId,
+    });
+
+    if (error) {
+      console.error('Failed to add to cart:', error);
+      alert('Error adding to cart');
+    } else {
+      alert('Added to cart!');
+      navigate('/cart');
+    }
+  }
+
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const { data, error } = await supabase
+        .from("courses")
+        .select()
+        .eq("id", courseId)
+        .single();
+      if (error) console.error("Error fetching course:", error);
+      else setCourse(data);
+      setLoading(false);
+    };
+
+    fetchCourse();
+  }, []);
+
   return (
     <div className="bg-slate-900 text-white min-h-screen">
       {/* Header */}
@@ -29,11 +78,9 @@ export default function CoursesDetail() {
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Left Section */}
           <div className="flex-1">
-            <h2 className="text-3xl font-bold mb-2">
-              The Complete AI Guide: Learn ChatGPT, Generative AI & More
-            </h2>
+            <h2 className="text-3xl font-bold mb-2">{course.title}</h2>
             <div className="flex items-center gap-2 text-green-400 font-semibold mb-6">
-              8/10 Rating
+              {course.rating}
             </div>
 
             {/* Course Image */}
@@ -45,23 +92,9 @@ export default function CoursesDetail() {
             <h3 className="text-xl font-semibold mb-4">Course Material</h3>
             <div className="space-y-4">
               <div className="bg-slate-800 p-5 rounded-lg shadow">
-                <p className="font-semibold mb-2">Material 1</p>
-                <ul className="list-disc list-inside text-slate-300 text-sm space-y-1">
-                  <li>1.1 Sub-material</li>
-                  <li>1.2 Sub-material</li>
-                  <li>1.3 Sub-material</li>
-                  <li>1.4 Sub-material</li>
-                  <li>1.5 Sub-material</li>
-                  <li>1.6 Material review</li>
-                  <li>1.7 Mandatory project / Exam</li>
-                </ul>
+                <p className="font-semibold mb-2">Description</p>
+                <p className="text-slate-300 text-sm">{course.description}</p>
               </div>
-
-              {[2, 3, 4].map((num) => (
-                <div key={num} className="bg-slate-800 p-5 rounded-lg shadow">
-                  <p className="font-semibold">Material {num}</p>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -70,13 +103,11 @@ export default function CoursesDetail() {
             <div className="bg-white rounded-lg p-6 shadow-lg sticky top-6">
               <div className="text-center mb-6">
                 <div className="text-3xl font-bold text-red-600 mb-4">
-                  {courseData.price}
+                  {course.price}
                 </div>
-                <Link to="/cart">
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-md mb-3 transition-colors">
-                    Add to Cart
-                  </button>
-                </Link>
+                <button onClick={addToCart} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-md mb-3 transition-colors">
+                  Add to Cart
+                </button>
                 <Link to="/my-courses">
                   <button className="w-full border border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold py-3 px-6 rounded-md transition-colors">
                     Buy Now

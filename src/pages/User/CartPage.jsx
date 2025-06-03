@@ -3,34 +3,58 @@ import Section from "../../components/Section";
 import React, { useState, useEffect } from "react";
 import dummyImg from "../../assets/dummy-img.png";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../lib/supabaseClient";
 
 export default function CartPage() {
   const [showModal, setShowModal] = useState(false);
   const [selectedPrice, setSelectedPrice] = useState(0);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState("");
+  const [selectedId, setSelectedId] = useState("");
+  const userId = localStorage.getItem("user_id");
 
-  const handlePaymentClick = (price, course, author) => {
+  const handlePaymentClick = (price, course, author, id) => {
     setSelectedPrice(price);
     setSelectedCourse(course);
     setSelectedAuthor(author);
+    setSelectedId(id);
     setShowModal(true);
   };
 
-  const courses = [
-    {
-      id: 1,
-      title: "The Complete AI Guide: Learn ChatGPT, Generative AI & More",
-      author: "John Doe",
-      price: 102000,
-    },
-    {
-      id: 2,
-      title: "Mastering Web Development with React and Tailwind",
-      author: "Jane Smith",
-      price: 95000,
-    },
-  ];
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    async function fetchCourses() {
+      const { data: cartItems, error } = await supabase
+        .from("cart")
+        .select(
+          `
+    id,
+    added_at,
+    courses (
+      id,
+      title,
+      rating,
+      price,
+      instructor,
+      duration,
+      students,
+      description,
+      features
+    )
+  `
+        )
+        .eq("user_id", userId);
+
+      if (error) {
+        console.error("Error fetching cart items:", error);
+      } else {
+        console.log("Cart courses:", cartItems);
+        setCourses(cartItems.map(item => item.courses));
+      }
+    }
+    fetchCourses();
+  }, []);
 
   useEffect(() => {
     if (showModal) {
@@ -44,27 +68,62 @@ export default function CartPage() {
 
   const navigate = useNavigate();
 
-  const handlePayment = () => {
-    if (window.snap) {
-      window.snap.pay("f126f3c8-14aa-4914-bd1d-ad1f3edda04c", {
-        onSuccess: (result) => {
-          console.log("Success:", result);
-          navigate("/");
-        },
-        onPending: (result) => {
-          console.log("Pending:", result);
-          navigate("/cart");
-        },
-        onError: (result) => {
-          console.error("Error:", result);
-        },
-        onClose: () => {
-          alert("Transaksi dibatalkan.");
-        },
-      });
-    } else {
-      alert("Snap belum dimuat.");
+  const handlePayment = async () => {
+    if (!userId || !selectedId) {
+      alert('User or course not selected');
+      return;
     }
+
+  // Insert into purchases table
+  const { data: purchaseData, error: purchaseError } = await supabase
+    .from('purchases')
+    .insert([
+      {
+        user_id: userId,
+        course_id: selectedId,
+      }
+    ]);
+
+  if (purchaseError) {
+    console.error('Payment failed:', purchaseError);
+    alert('Payment failed, please try again.');
+    return;
+  }
+
+const { error: cartDeleteError } = await supabase
+    .from('cart')
+    .delete()
+    .match({ user_id: userId, course_id: selectedId });
+
+  if (cartDeleteError) {
+    console.warn('Failed to remove course from cart:', cartDeleteError);
+    alert('Payment successful, but failed to remove course from cart.');
+  } else {
+    alert('Payment successful! Course added to your purchases and removed from cart.');
+  }
+  setShowModal(false);
+  navigate("/my-courses");
+
+    // if (window.snap) {
+    //   window.snap.pay("f126f3c8-14aa-4914-bd1d-ad1f3edda04c", {
+    //     onSuccess: (result) => {
+    //       console.log("Success:", result);
+    //       navigate("/");
+    //     },
+    //     onPending: (result) => {
+    //       console.log("Pending:", result);
+    //       navigate("/cart");
+    //     },
+    //     onError: (result) => {
+    //       console.error("Error:", result);
+    //     },
+    //     onClose: () => {
+    //       alert("Transaksi dibatalkan.");
+    //     },
+    //   });
+    // } else {
+    //   alert("Snap belum dimuat.");
+    // }
   };
 
   return (
@@ -125,12 +184,13 @@ export default function CartPage() {
                     handlePaymentClick(
                       course.price,
                       course.title,
-                      course.author
+                      course.author,
+                      course.id
                     )
                   }
                   className="w-1/2 text-black text-sm bg-sky-500/50 rounded-sm m-4 p-2"
                 >
-                  Lanjut Beli →
+                  Checkout →
                 </button>
               </div>
             </div>
@@ -141,7 +201,7 @@ export default function CartPage() {
           <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
             <div className="bg-white p-6 rounded-xl w-80 shadow-lg">
               <h3 className="text-lg font-bold mb-4 text-gray-800">
-                Rincian Pembayaran
+                Payment Detail
               </h3>
               <div className="space-y-2 text-sm text-gray-700">
                 <div>
@@ -155,7 +215,7 @@ export default function CartPage() {
                 <hr className="mb-4" />
                 <div className="flex justify-between">
                   <span>Harga Course:</span>
-                  <span>Rp{selectedPrice.toLocaleString()}</span>
+                  <span>{selectedPrice.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Fee Transaksi:</span>
@@ -164,7 +224,7 @@ export default function CartPage() {
                 <hr />
                 <div className="flex justify-between font-bold">
                   <span>Total:</span>
-                  <span>Rp{(selectedPrice + 5000).toLocaleString()}</span>
+                  <span>{(selectedPrice).toLocaleString()} + Rp5,000</span>
                 </div>
               </div>
               <div className="mt-6 flex justify-end gap-2">
@@ -172,13 +232,13 @@ export default function CartPage() {
                   onClick={() => setShowModal(false)}
                   className="px-4 py-2 bg-gray-300 text-sm rounded hover:bg-gray-400"
                 >
-                  Tutup
+                  Close
                 </button>
                 <button
-                  onClick={handlePayment}
+                  onClick={() => handlePayment(selectedId)}
                   className="px-4 py-2 bg-sky-500 text-white text-sm rounded hover:bg-sky-600"
                 >
-                  Bayar Sekarang
+                  Pay Now
                 </button>
               </div>
             </div>

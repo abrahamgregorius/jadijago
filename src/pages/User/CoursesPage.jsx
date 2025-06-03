@@ -3,8 +3,24 @@ import dummyImg from "../../assets/dummy-img.png";
 import Main from "../../components/Main";
 import Section from "../../components/Section";
 import Courses from "../../components/WelcomePage/Courses";
+import { useEffect, useState } from "react";
+import { supabase } from "../../lib/supabaseClient";
 
 export default function CoursesPage() {
+  const [courses, setCourses] = useState([])
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const { data, error } = await supabase.from('courses').select('*');
+      if (error) console.error('Error fetching courses:', error);
+      else setCourses(data);
+      setLoading(false);
+    };
+
+    fetchCourses();
+  }, []);
+
   return (
     <>
       <Main>
@@ -15,11 +31,10 @@ export default function CoursesPage() {
             </div>
             <div className="popular-body">
               <div className="py-8 px-4 mx-auto max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                {Array(5)
-                  .fill(0)
-                  .map((_, index) => (
+                {courses
+                  .map((course, index) => (
                     <Link
-                      to={`/courses/${index}`}
+                      to={`/courses/${course.id}`}
                       key={index}
                       className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                     >
@@ -30,14 +45,13 @@ export default function CoursesPage() {
                       />
                       <div className="p-4 flex flex-col gap-y-2 text-black">
                         <p className="text-base font-bold">
-                          The Complete AI Guide: Learn ChatGPT, Generative AI &
-                          More
+                            {course.title}
                         </p>
                         <p className="text-sm font-medium text-gray-700">
-                          8/10
+                          {course.rating}
                         </p>
                         <p className="text-base font-bold text-green-600">
-                          Rp102,000
+                          {course.price}
                         </p>
                       </div>
                     </Link>
@@ -53,11 +67,10 @@ export default function CoursesPage() {
             </div>
             <div className="all-body">
               <div className="py-8 px-4 mx-auto max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                {Array(15)
-                  .fill(0)
-                  .map((_, index) => (
+                {courses
+                  .map((course, index) => (
                     <Link
-                      to={`/courses/${index}`}
+                      to={`/courses/${course.id}`}
                       key={index}
                       className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                     >
@@ -68,14 +81,13 @@ export default function CoursesPage() {
                       />
                       <div className="p-4 flex flex-col gap-y-2 text-black">
                         <p className="text-base font-bold">
-                          The Complete AI Guide: Learn ChatGPT, Generative AI &
-                          More
+                          {course.title}
                         </p>
                         <p className="text-sm font-medium text-gray-700">
-                          8/10
+                          {course.rating}
                         </p>
                         <p className="text-base font-bold text-green-600">
-                          Rp102,000
+                          {course.price}
                         </p>
                       </div>
                     </Link>

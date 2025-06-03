@@ -1,22 +1,36 @@
 import { Link, useNavigate } from "react-router-dom";
 import Main from "../components/Main";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabaseClient";
 
 export default function Login() {
-  const navigate = useNavigate()
-  
-  function login(e) {
-    e.preventDefault()
-    localStorage.setItem('token', 'login')
-    navigate('/')
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  async function login(e) {
+    e.preventDefault();
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      alert("Login failed: " + error.message);
+    } else {
+      localStorage.setItem("token", data.session.access_token);
+      localStorage.setItem("user_id", data.session.user.id);
+      navigate("/");
+    }
   }
 
   useEffect(() => {
-    if(localStorage.getItem('token')) {
-      navigate(-1)
-      alert("Not allowed")
+    if (localStorage.getItem("token")) {
+      alert("You're already logged in.");
+      navigate("/");
     }
-  }, [])
+  }, []);
 
   return (
     <>
@@ -53,6 +67,7 @@ export default function Login() {
                       id="email"
                       className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com"
+                      onChange={(e) => setEmail(e.target.value)}
                       required=""
                     />
                   </div>
@@ -70,6 +85,7 @@ export default function Login() {
                       placeholder="••••••••"
                       className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required=""
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div className="flex items-center justify-between">
@@ -99,15 +115,13 @@ export default function Login() {
                       Forgot password?
                     </Link> */}
                   </div>
-                  <Link to={"/"}>
-                    <button
-                      onClick={(e) => login(e)}
-                      type="submit"
-                      className="text-white w-full cursor-pointer mb-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Log in
-                    </button>
-                  </Link>
+                  <button
+                    onClick={(e) => login(e)}
+                    type="submit"
+                    className="text-white w-full cursor-pointer mb-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Log in
+                  </button>
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                     Don’t have an account yet?{" "}
                     <Link
