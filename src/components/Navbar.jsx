@@ -41,17 +41,14 @@ export default function Navbar({ className }) {
                 >
                   Explore
                 </Link>
+                <Link to="/cart" className="text-white px-4 py-2 text-center">
+                  Cart
+                </Link>
                 <Link
                   to="/my-courses"
                   className="text-white px-4 py-2 text-center"
                 >
                   My Courses
-                </Link>
-                <Link
-                  to="/cart"
-                  className="text-white px-4 py-2 text-center"
-                >
-                  Cart
                 </Link>
                 <div>
                   <form>
