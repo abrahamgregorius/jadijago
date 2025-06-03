@@ -47,6 +47,12 @@ export default function Navbar({ className }) {
                 >
                   My Courses
                 </Link>
+                <Link
+                  to="/cart"
+                  className="text-white px-4 py-2 text-center"
+                >
+                  Cart
+                </Link>
                 <div>
                   <form>
                     <div class="relative">
