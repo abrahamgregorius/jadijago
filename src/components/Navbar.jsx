@@ -22,7 +22,7 @@ export default function Navbar({ className }) {
       >
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link
-            to="/cart"
+            to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
@@ -40,6 +40,12 @@ export default function Navbar({ className }) {
                   className="text-white px-4 py-2 text-center"
                 >
                   Explore
+                </Link>
+                <Link
+                  to="/my-courses"
+                  className="text-white px-4 py-2 text-center"
+                >
+                  My Courses
                 </Link>
                 <div>
                   <form>

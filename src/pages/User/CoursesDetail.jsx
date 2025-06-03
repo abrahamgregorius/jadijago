@@ -1,25 +1,28 @@
 import { Link } from "react-router-dom";
+import Navbar from "../../components/Navbar";
+const courseData = {
+  title: "The Complete AI Guide: Learn ChatGPT, Generative AI & More",
+  rating: "8/10 Rating",
+  price: "Rp102,000",
+  instructor: "AI Expert",
+  duration: "12 hours",
+  students: "2,847 students",
+  description:
+    "Master the fundamentals of Artificial Intelligence, ChatGPT, and Generative AI technologies. This comprehensive course covers everything from basic concepts to advanced applications, perfect for beginners and professionals looking to enhance their AI skills.",
+  features: [
+    "12 hours of on-demand video",
+    "45 downloadable resources",
+    "Full lifetime access",
+    "Access on mobile and TV",
+    "Certificate of completion",
+  ],
+};
 
 export default function CoursesDetail() {
   return (
     <div className="bg-slate-900 text-white min-h-screen">
       {/* Header */}
-      <header className="border-b border-slate-700 px-6 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-white">JadiJago</h1>
-        <nav className="flex items-center gap-4 text-sm">
-          <a href="#" className="hover:text-blue-400 transition">Home</a>
-          <a href="#" className="hover:text-blue-400 transition">Explore</a>
-          <input
-            type="text"
-            placeholder="Search in site"
-            className="bg-slate-800 border border-slate-600 rounded px-3 py-1 text-sm text-white placeholder:text-slate-400"
-          />
-          <a href="#" className="hover:text-blue-400">Register</a>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded transition">
-            Log In
-          </button>
-        </nav>
-      </header>
+      <Navbar></Navbar>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-10">
@@ -63,15 +66,49 @@ export default function CoursesDetail() {
           </div>
 
           {/* Right Section - Pricing */}
-          <aside className="bg-white text-slate-900 rounded-lg shadow-md p-6 w-full max-h-[25vh] lg:w-1/3">
-            <p className="text-center text-4xl font-bold mb-4 text-red-600">Rp102,000</p>
-            <Link to="/cart" className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded mb-3 transition">
-              Add to Cart
-            </Link>
-            <button className="w-full flex items-center justify-center gap-2 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white py-2 rounded transition">
-              Buy Now
-            </button>
-          </aside>
+          <div className="">
+            <div className="bg-white rounded-lg p-6 shadow-lg sticky top-6">
+              <div className="text-center mb-6">
+                <div className="text-3xl font-bold text-red-600 mb-4">
+                  {courseData.price}
+                </div>
+                <Link to="/cart">
+                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-md mb-3 transition-colors">
+                    Add to Cart
+                  </button>
+                </Link>
+                <Link to="/my-courses">
+                  <button className="w-full border border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold py-3 px-6 rounded-md transition-colors">
+                    Buy Now
+                  </button>
+                </Link>
+              </div>
+
+              <div className="border-t pt-4">
+                <h4 className="font-semibold text-gray-800 mb-3">
+                  This course includes:
+                </h4>
+                <ul className="space-y-2 text-sm text-gray-600">
+                  {courseData.features.map((feature, index) => (
+                    <li key={index} className="flex items-center">
+                      <svg
+                        className="w-4 h-4 text-green-500 mr-2"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
 

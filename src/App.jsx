@@ -6,6 +6,8 @@ import MentorDashboard from './pages/Mentor/MentorDashboard'
 import CoursesPage from './pages/User/CoursesPage'
 import CartPage from './pages/User/CartPage'
 import CoursesDetail from './pages/User/CoursesDetail'
+import MyCourses from './pages/User/MyCourses/MyCourses'
+import Learn from './pages/User/MyCourses/Learn'
 
 function App() {
   return (
@@ -20,8 +22,11 @@ function App() {
         {/* User route */}
         <Route element={<CoursesPage></CoursesPage>} path='/courses'></Route>
         <Route element={<CoursesDetail></CoursesDetail>} path='/courses/:id'></Route>
+        <Route element={<Learn></Learn>} path='/courses/learn/:id/'></Route>
         <Route element={<CartPage></CartPage>} path='/cart'></Route>
-        
+
+        {/* My Courses route */}
+        <Route element={<MyCourses></MyCourses>} path='/my-courses'></Route>
       
       
         {/* Mentor route */}
