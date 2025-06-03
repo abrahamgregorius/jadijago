@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export default function CoursesDetail() {
   return (
@@ -64,9 +65,9 @@ export default function CoursesDetail() {
           {/* Right Section - Pricing */}
           <aside className="bg-white text-slate-900 rounded-lg shadow-md p-6 w-full max-h-[25vh] lg:w-1/3">
             <p className="text-center text-4xl font-bold mb-4 text-red-600">Rp102,000</p>
-            <button className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded mb-3 transition">
+            <Link to="/cart" className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded mb-3 transition">
               Add to Cart
-            </button>
+            </Link>
             <button className="w-full flex items-center justify-center gap-2 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white py-2 rounded transition">
               Buy Now
             </button>

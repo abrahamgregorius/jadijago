@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import dummyImg from "../../assets/dummy-img.png";
 import Main from "../../components/Main";
 import Section from "../../components/Section";
@@ -17,7 +18,8 @@ export default function CoursesPage() {
                 {Array(5)
                   .fill(0)
                   .map((_, index) => (
-                    <div
+                    <Link
+                      to={`/courses/${index}`}
                       key={index}
                       className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                     >
@@ -38,7 +40,7 @@ export default function CoursesPage() {
                           Rp102,000
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
               </div>
             </div>
@@ -54,7 +56,8 @@ export default function CoursesPage() {
                 {Array(15)
                   .fill(0)
                   .map((_, index) => (
-                    <div
+                    <Link
+                      to={`/courses/${index}`}
                       key={index}
                       className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                     >
@@ -75,7 +78,7 @@ export default function CoursesPage() {
                           Rp102,000
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
               </div>
             </div>
