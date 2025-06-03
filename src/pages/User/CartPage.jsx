@@ -161,7 +161,7 @@ const { error: cartDeleteError } = await supabase
                 <p className="text-base font-bold">{course.title}</p>
                 <p className="text-sm font-medium text-gray-700">8/10</p>
                 <p className="text-base font-bold text-green-600">
-                  Rp{course.price.toLocaleString()}
+                  {course.price.toLocaleString()}
                 </p>
               </div>
 
