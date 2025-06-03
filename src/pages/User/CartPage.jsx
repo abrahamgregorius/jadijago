@@ -1,0 +1,190 @@
+import Main from "../../components/Main";
+import Section from "../../components/Section";
+import React, { useState, useEffect } from "react";
+import dummyImg from "../../assets/dummy-img.png";
+import { useNavigate } from "react-router-dom";
+
+export default function CartPage() {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedPrice, setSelectedPrice] = useState(0);
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedAuthor, setSelectedAuthor] = useState("");
+
+  const handlePaymentClick = (price, course, author) => {
+    setSelectedPrice(price);
+    setSelectedCourse(course);
+    setSelectedAuthor(author);
+    setShowModal(true);
+  };
+
+  const courses = [
+    {
+      id: 1,
+      title: "The Complete AI Guide: Learn ChatGPT, Generative AI & More",
+      author: "John Doe",
+      price: 102000,
+    },
+    {
+      id: 2,
+      title: "Mastering Web Development with React and Tailwind",
+      author: "Jane Smith",
+      price: 95000,
+    },
+  ];
+
+  useEffect(() => {
+    if (showModal) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [showModal]);
+
+  const navigate = useNavigate();
+
+  const handlePayment = () => {
+    if (window.snap) {
+      window.snap.pay("f126f3c8-14aa-4914-bd1d-ad1f3edda04c", {
+        onSuccess: (result) => {
+          console.log("Success:", result);
+          navigate("/");
+        },
+        onPending: (result) => {
+          console.log("Pending:", result);
+          navigate("/cart");
+        },
+        onError: (result) => {
+          console.error("Error:", result);
+        },
+        onClose: () => {
+          alert("Transaksi dibatalkan.");
+        },
+      });
+    } else {
+      alert("Snap belum dimuat.");
+    }
+  };
+
+  return (
+    <Main>
+      <Section>
+        <div className="py-4 px-4 mx-auto max-w-screen-xl">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+            Continue Payment
+          </h2>
+        </div>
+        <div className="py-8 px-4 mx-auto max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          {courses.map((course, index) => (
+            <div
+              key={course.id}
+              className="shadow shadow-white bg-white rounded-xl overflow-hidden flex flex-col"
+            >
+              <img
+                src={dummyImg}
+                alt="course"
+                className="object-cover w-full h-48"
+              />
+
+              <div className="px-4 pt-4 flex items-center gap-3">
+                <img
+                  src={`https://i.pravatar.cc/40?img=${index + 3}`}
+                  alt="avatar"
+                  className="w-8 h-8 rounded-full"
+                />
+                <p className="text-sm font-semibold text-gray-800">
+                  {course.author}
+                </p>
+              </div>
+
+              <div className="p-4 flex flex-col gap-y-2 text-black">
+                <p className="text-base font-bold">{course.title}</p>
+                <p className="text-sm font-medium text-gray-700">8/10</p>
+                <p className="text-base font-bold text-green-600">
+                  Rp{course.price.toLocaleString()}
+                </p>
+              </div>
+
+              <div className="w-full h-10 bg-sky-500/50 font-bold text-black flex items-center justify-center">
+                Unlimited Access
+              </div>
+
+              <div className="p-4 flex flex-col gap-y-2 text-black">
+                <ul>
+                  <li className="text-sm">
+                    - Lifetime Access for all material
+                  </li>
+                  <li className="text-sm">- Downloadable Resources</li>
+                </ul>
+              </div>
+
+              <div className="w-full flex items-center justify-end">
+                <button
+                  onClick={() =>
+                    handlePaymentClick(
+                      course.price,
+                      course.title,
+                      course.author
+                    )
+                  }
+                  className="w-1/2 text-black text-sm bg-sky-500/50 rounded-sm m-4 p-2"
+                >
+                  Lanjut Beli →
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {showModal && (
+          <div className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-xl w-80 shadow-lg">
+              <h3 className="text-lg font-bold mb-4 text-gray-800">
+                Rincian Pembayaran
+              </h3>
+              <div className="space-y-2 text-sm text-gray-700">
+                <div>
+                  <span className="font-semibold">Course:</span>{" "}
+                  <span>{selectedCourse}</span>
+                </div>
+                <div>
+                  <span className="font-semibold">Author:</span>{" "}
+                  <span>{selectedAuthor}</span>
+                </div>
+                <hr className="mb-4" />
+                <div className="flex justify-between">
+                  <span>Harga Course:</span>
+                  <span>Rp{selectedPrice.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Fee Transaksi:</span>
+                  <span>Rp5,000</span>
+                </div>
+                <hr />
+                <div className="flex justify-between font-bold">
+                  <span>Total:</span>
+                  <span>Rp{(selectedPrice + 5000).toLocaleString()}</span>
+                </div>
+              </div>
+              <div className="mt-6 flex justify-end gap-2">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 bg-gray-300 text-sm rounded hover:bg-gray-400"
+                >
+                  Tutup
+                </button>
+                <button
+                  onClick={handlePayment}
+                  className="px-4 py-2 bg-sky-500 text-white text-sm rounded hover:bg-sky-600"
+                >
+                  Bayar Sekarang
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </Section>
+    </Main>
+  );
+}
