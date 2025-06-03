@@ -1,9 +1,15 @@
 import Main from "../../../components/Main";
 import Section from "../../../components/Section";
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
+import { supabase } from "../../../lib/supabaseClient";
 
-// Mock data for the course
 const courseData = {
   title: "The Complete AI Guide: Learn ChatGPT, Generative AI & More",
   rating: "8/10 Rating",
@@ -226,18 +232,41 @@ const VideoPlayer = ({ currentLesson }) => {
 
 // Course Info Component
 const CourseInfo = () => {
+  const [course, setCourse] = useState({});
+  const { id } = useParams();
+
+  const fetchCourse = async () => {
+    const { data, error } = await supabase
+      .from("courses")
+      .select(`*`)
+      .eq("id", id)
+      .single();
+
+    console.log("Fetched course data:", data);
+      if (error) {
+      console.error("Error fetching purchased courses:", error);
+      setCourse({});
+    } else {
+      setCourse(data);
+    }
+  };
+
+  useEffect(() => {
+    fetchCourse();
+  }, []);
+
   return (
     <div className="bg-slate-800 rounded-lg p-6">
-      <h1 className="text-2xl font-bold text-white mb-2">{courseData.title}</h1>
+      <h1 className="text-2xl font-bold text-white mb-2">{course.title}</h1>
       <div className="flex items-center space-x-4 mb-4">
         <span className="text-green-400 text-sm font-medium">
-          {courseData.rating}
+          {course.rating}
         </span>
-        <span className="text-gray-400 text-sm">{courseData.students}</span>
-        <span className="text-gray-400 text-sm">{courseData.duration}</span>
+        <span className="text-gray-400 text-sm">{course.students}</span>
+        <span className="text-gray-400 text-sm">{course.duration}</span>
       </div>
 
-      <p className="text-gray-300 mb-6">{courseData.description}</p>
+      <p className="text-gray-300 mb-6">{course.description}</p>
 
       <div className="mb-6">
         <h3 className="text-lg font-semibold text-white mb-3">
