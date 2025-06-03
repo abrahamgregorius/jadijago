@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import dummyImg from "../../assets/dummy-img.png";
 import Section from "../Section";
 
@@ -13,33 +14,38 @@ export default function Courses() {
         {Array(7)
           .fill(0)
           .map((_, index) => (
-            <div
-              key={index}
-              className="shadow shadow-white bg-white rounded-xl overflow-hidden flex flex-col"
-            >
-              <img
-                src={dummyImg}
-                alt="course"
-                className="object-cover w-full h-48"
-              />
-
-              <div className="px-4 pt-4 flex items-center gap-3">
+            <Link to={`/courses/${index}`} key={index}>
+              <div
+                className="shadow shadow-white bg-white rounded-xl overflow-hidden flex flex-col"
+              >
                 <img
-                  src="https://i.pravatar.cc/40?img=3"
-                  alt="avatar"
-                  className="w-8 h-8 rounded-full"
+                  src={dummyImg}
+                  alt="course"
+                  className="object-cover w-full h-48"
                 />
-                <p className="text-sm font-semibold text-gray-800">John Doe</p>
-              </div>
 
-              <div className="p-4 flex flex-col gap-y-2 text-black">
-                <p className="text-base font-bold">
-                  The Complete AI Guide: Learn ChatGPT, Generative AI & More
-                </p>
-                <p className="text-sm font-medium text-gray-700">8/10</p>
-                <p className="text-base font-bold text-green-600">Rp102,000</p>
+                <div className="px-4 pt-4 flex items-center gap-3">
+                  <img
+                    src="https://i.pravatar.cc/40?img=3"
+                    alt="avatar"
+                    className="w-8 h-8 rounded-full"
+                  />
+                  <p className="text-sm font-semibold text-gray-800">
+                    John Doe
+                  </p>
+                </div>
+
+                <div className="p-4 flex flex-col gap-y-2 text-black">
+                  <p className="text-base font-bold">
+                    The Complete AI Guide: Learn ChatGPT, Generative AI & More
+                  </p>
+                  <p className="text-sm font-medium text-gray-700">8/10</p>
+                  <p className="text-base font-bold text-green-600">
+                    Rp102,000
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
       </div>
     </Section>

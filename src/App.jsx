@@ -5,6 +5,7 @@ import Register from './pages/Register'
 import MentorDashboard from './pages/Mentor/MentorDashboard'
 import CoursesPage from './pages/User/CoursesPage'
 import CartPage from './pages/User/CartPage'
+import CoursesDetail from './pages/User/CoursesDetail'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       
         {/* User route */}
         <Route element={<CoursesPage></CoursesPage>} path='/courses'></Route>
+        <Route element={<CoursesDetail></CoursesDetail>} path='/courses/:id'></Route>
         <Route element={<CartPage></CartPage>} path='/cart'></Route>
         
       
