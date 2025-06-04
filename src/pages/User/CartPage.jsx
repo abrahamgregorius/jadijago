@@ -40,6 +40,7 @@ export default function CartPage() {
       duration,
       students,
       description,
+      thumbnail,
       features
     )
   `
@@ -141,7 +142,7 @@ const { error: cartDeleteError } = await supabase
               className="shadow shadow-white bg-white rounded-xl overflow-hidden flex flex-col"
             >
               <img
-                src={dummyImg}
+                src={course.thumbnail}
                 alt="course"
                 className="object-cover w-full h-48"
               />

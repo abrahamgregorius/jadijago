@@ -39,13 +39,16 @@ export default function CoursesPage() {
                       className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                     >
                       <img
-                        src={dummyImg}
+                        src={course.thumbnail}
                         alt="course"
                         className="object-cover w-full h-48"
                       />
                       <div className="p-4 flex flex-col gap-y-2 text-black">
                         <p className="text-base font-bold">
-                            {course.title}
+                          {course.title}
+                        </p>
+                        <p className="text-base font-bold text-slate-500">
+                          {course.author}
                         </p>
                         <p className="text-sm font-medium text-gray-700">
                           {course.rating}
@@ -75,13 +78,16 @@ export default function CoursesPage() {
                       className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                     >
                       <img
-                        src={dummyImg}
+                        src={course.thumbnail}
                         alt="course"
                         className="object-cover w-full h-48"
                       />
                       <div className="p-4 flex flex-col gap-y-2 text-black">
                         <p className="text-base font-bold">
                           {course.title}
+                        </p>
+                        <p className="text-base font-bold text-slate-500">
+                          {course.author}
                         </p>
                         <p className="text-sm font-medium text-gray-700">
                           {course.rating}

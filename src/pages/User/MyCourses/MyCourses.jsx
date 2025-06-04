@@ -20,7 +20,8 @@ export default function MyCourses() {
             title,
             rating,
             price,
-            instructor
+            instructor,
+            thumbnail
           )
         `
         )
@@ -54,7 +55,7 @@ export default function MyCourses() {
                   className="shadow select-none cursor-pointer shadow-white hover:bg-gray-200 transition duration-250 bg-white rounded-xl overflow-hidden flex flex-col"
                 >
                   <img
-                    src={dummyImg}
+                    src={course.thumbnail}
                     alt="course"
                     className="object-cover w-full h-48"
                   />
