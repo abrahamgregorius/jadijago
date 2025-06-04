@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import { supabase } from "../../lib/supabaseClient";
 import { useEffect, useState } from "react";
+import Footer from "../../components/Footer";
 
 const courseData = {
   title: "The Complete AI Guide: Learn ChatGPT, Generative AI & More",
@@ -144,9 +145,7 @@ export default function CoursesDetail() {
       </main>
 
       {/* Footer */}
-      <footer className="text-center text-sm text-slate-500 py-6 border-t border-slate-700">
-        © 2025 JadiJago. All rights reserved.
-      </footer>
+      <Footer></Footer>
     </div>
   );
 }
