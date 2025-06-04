@@ -130,8 +130,8 @@ const { error: cartDeleteError } = await supabase
     <Main>
       <Section>
         <div className="py-4 px-4 mx-auto max-w-screen-xl">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-            Continue Payment
+          <h2 className="text-4xl font-semibold">
+            Cart
           </h2>
         </div>
         <div className="py-8 px-4 mx-auto max-w-screen-xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
