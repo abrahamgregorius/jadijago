@@ -35,19 +35,19 @@ export default function Courses() {
                 className="shadow shadow-white bg-white rounded-xl overflow-hidden flex flex-col"
               >
                 <img
-                  src={dummyImg}
+                  src={course.thumbnail}
                   alt="course"
                   className="object-cover w-full h-48"
                 />
 
                 <div className="px-4 pt-4 flex items-center gap-3">
                   <img
-                    src="https://i.pravatar.cc/40?img=3"
+                    src={`https://i.pravatar.cc/40?img=${index + 3}`}
                     alt="avatar"
                     className="w-8 h-8 rounded-full"
                   />
                   <p className="text-sm font-semibold text-gray-800">
-                    John Doe
+                    {course.instructor}
                   </p>
                 </div>
 

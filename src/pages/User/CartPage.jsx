@@ -154,7 +154,7 @@ const { error: cartDeleteError } = await supabase
                   className="w-8 h-8 rounded-full"
                 />
                 <p className="text-sm font-semibold text-gray-800">
-                  {course.author}
+                  {course.instructor}
                 </p>
               </div>
 
