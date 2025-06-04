@@ -85,7 +85,7 @@ export default function CoursesDetail() {
 
             {/* Course Image */}
             <div className="bg-slate-700 rounded-lg h-64 flex items-center justify-center text-slate-400 text-xl font-semibold mb-8">
-              Course Thumbnail
+              <img src={course.thumbnail} alt={course.title} className="object-cover w-full h-full rounded-lg" />
             </div>
 
             {/* Course Content */}
