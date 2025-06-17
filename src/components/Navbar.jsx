@@ -34,21 +34,8 @@ export default function Navbar({ className }) {
               JadiJago
             </span>
           </Link>
-          
-          <div className="flex sm:hidden">
-            <span
-              id="mobile-menu-button"
-              onClick={toggleMobileMenu}
-              className="text-white cursor-pointer"
-            >
-              &#9776;
-            </span>
-          </div>
-          {isOpen ? (
-          <div
-            className="flex flex-col pt-4 items-center justify-between w-full sm:w-auto"
-            id="mobile-menu"
-          >
+
+          <div className="hidden sm:flex sm:w-auto">
             {isLog ? (
               <>
                 <Link to="/" className="text-white px-4 py-2 text-center">
@@ -87,6 +74,59 @@ export default function Navbar({ className }) {
               </>
             )}
           </div>
+
+          <div className="flex sm:hidden">
+            <span
+              id="mobile-menu-button"
+              onClick={toggleMobileMenu}
+              className="text-white cursor-pointer"
+            >
+              &#9776;
+            </span>
+          </div>
+          {isOpen ? (
+            <div
+              className="flex sm:hidden flex-col pt-4 items-center justify-between w-full sm:w-auto"
+              id="mobile-menu"
+            >
+              {isLog ? (
+                <>
+                  <Link to="/" className="text-white px-4 py-2 text-center">
+                    Home
+                  </Link>
+                  <Link
+                    to="/courses"
+                    className="text-white px-4 py-2 text-center"
+                  >
+                    Explore
+                  </Link>
+                  <Link to="/cart" className="text-white px-4 py-2 text-center">
+                    Cart
+                  </Link>
+                  <Link
+                    to="/my-courses"
+                    className="text-white px-4 py-2 text-center"
+                  >
+                    My Courses
+                  </Link>
+                  <Link
+                    onClick={logout}
+                    className="text-white flex justify-center items-center px-4 py-2 text-center cursor-pointer"
+                  >
+                    Log out
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Log in
+                  </Link>
+                </>
+              )}
+            </div>
           ) : null}
         </div>
       </nav>
