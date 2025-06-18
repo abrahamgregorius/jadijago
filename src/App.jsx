@@ -8,6 +8,7 @@ import CartPage from './pages/User/CartPage'
 import CoursesDetail from './pages/User/CoursesDetail'
 import MyCourses from './pages/User/MyCourses/MyCourses'
 import Learn from './pages/User/MyCourses/Learn'
+import FAQ from './pages/FAQ'
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Route element={<Home></Home>} path='/'></Route>
         <Route element={<Login></Login>} path='/login'></Route>
         <Route element={<Register></Register>} path='/register'></Route>
-      
-      
+
+        <Route element={<FAQ></FAQ>} path='/faq'></Route>
+
         {/* User route */}
         <Route element={<CoursesPage></CoursesPage>} path='/courses'></Route>
         <Route element={<CoursesDetail></CoursesDetail>} path='/courses/:id'></Route>

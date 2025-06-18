@@ -26,8 +26,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="#" class="hover:underline me-4 md:me-6">
-                  Licensing
+                <Link to="/faq" class="hover:underline me-4 md:me-6">
+                  FAQ
                 </Link>
               </li>
               <li>
