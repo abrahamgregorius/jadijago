@@ -9,6 +9,9 @@ import CoursesDetail from './pages/User/CoursesDetail'
 import MyCourses from './pages/User/MyCourses/MyCourses'
 import Learn from './pages/User/MyCourses/Learn'
 import FAQ from './pages/FAQ'
+import MentorCourses from './pages/Mentor/MentorCourses'
+import MentorForum from './pages/Mentor/MentorForum'
+import MentorInbox from './pages/Mentor/MentorInbox'
 
 function App() {
   return (
@@ -33,7 +36,10 @@ function App() {
       
         {/* Mentor route */}
         <Route element={<MentorDashboard></MentorDashboard>} path='/mentor/dashboard'></Route>
-      
+        <Route element={<MentorCourses></MentorCourses>} path='/mentor/courses'></Route>
+        <Route element={<MentorForum></MentorForum>} path='/mentor/forum'></Route>
+        <Route element={<MentorInbox></MentorInbox>} path='/mentor/inbox'></Route>
+
       </Routes>
     </>
   )
